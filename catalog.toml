@@ -3366,3 +3366,16 @@ description = "Headset battery and device info from headsetcontrol"
 deprecated = false
 plugin_api = 32
 tags = ["bar", "panel", "service", "audio", "hardware", "indicator"]
+
+[[plugin]]
+id = "ghillb/portforward"
+name = "Port Forwarding"
+version = "0.1.3"
+updated_at = 1791329157
+added_at = 1791329157
+author = "ghillb"
+license = "MIT"
+icon = "arrows-left-right"
+description = "Named SSH forwards with a standalone CLI and systemd supervision."
+plugin_api = 24
+tags = ["bar", "panel", "service", "network", "utility", "development"]
