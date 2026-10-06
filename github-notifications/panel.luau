@@ -17,7 +17,7 @@ local tr = noctalia.tr
 local filter = "all"
 local hoveredId = nil
 local collapsed = {}
-local pending = {} -- stack of { kind = "one" | "all", items = {...}, deadline = ms }
+local pending = {} -- stack of { kind = "one" | "all", verb = "read" | "done", items = {...}, deadline = ms }
 local shownItems = {}
 
 local function getRadius(baseRadius)
@@ -101,7 +101,7 @@ local function dispatch(entry)
   else
     for _, it in ipairs(entry.items) do
       noctalia.state.set("github_notifications:action", {
-        type = "mark_read",
+        type = entry.verb == "done" and "mark_done" or "mark_read",
         id = it.id,
         nonce = noctalia.nowMs(),
       })
@@ -143,11 +143,11 @@ local function flush(everything)
   return true
 end
 
-local function queueRead(kind, list)
+local function queueRead(kind, list, verb)
   if #list == 0 then
     return
   end
-  table.insert(pending, { kind = kind, items = list, deadline = noctalia.nowMs() + UNDO_WINDOW_MS })
+  table.insert(pending, { kind = kind, verb = verb or "read", items = list, deadline = noctalia.nowMs() + UNDO_WINDOW_MS })
   syncFrameTick()
   renderPanel()
 end
@@ -161,11 +161,11 @@ local function undoLast()
   renderPanel()
 end
 
-local function markAsRead(item)
+local function markAsRead(item, verb)
   if not item or not item.id or not Notifications.isValidThreadId(item.id) then
     return
   end
-  queueRead("one", { item })
+  queueRead("one", { item }, verb)
 end
 
 local function openNotification(item)
@@ -186,7 +186,7 @@ local function openNotification(item)
 
   -- Only touch read state after verifying the link is valid and openable
   if cfgBool("mark_read_on_open", true) then
-    markAsRead(item)
+    markAsRead(item, "read")
   end
   noctalia.runAsync({ "xdg-open", item.url })
 end
@@ -441,14 +441,14 @@ local function renderNotificationCard(item, d)
         }),
       }),
     }),
-    -- Separate check button: marks as read only, does NOT open browser
+    -- Separate check button: marks as done on GitHub, does NOT open browser
     ui.button({
       glyph = "check",
       variant = "ghost",
       controlSize = "sm",
-      tooltip = tr("action.mark_read"),
+      tooltip = tr("action.mark_done"),
       onClick = function()
-        markAsRead(item)
+        markAsRead(item, "done")
       end,
     }),
   })
@@ -644,7 +644,8 @@ local function renderUndoBar()
   if not entry then
     return nil
   end
-  local text = #entry.items == 1 and tr("undo.one") or tr("undo.many", { count = #entry.items })
+  local prefix = entry.verb == "done" and "undo.done_" or "undo."
+  local text = #entry.items == 1 and tr(prefix .. "one") or tr(prefix .. "many", { count = #entry.items })
   return ui.row({
     radius = getRadius(8),
     paddingV = 4,

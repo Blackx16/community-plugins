@@ -37,10 +37,10 @@ relies completely on your local `gh` session.
 
 - **Bar Widget**: Shows the GitHub icon and unread notification counter. Left-click to open the inbox; right-click to trigger an immediate refresh.
 - **Notification Cards**: Displays PRs, issues, discussions, releases, check suites, and mentions with clear icons, repository paths, reason badges, and compact relative timestamps (`3m`, `2h`, `1d`).
-- **Open in Browser**: Clicking a notification opens its target page in your browser and, by default, marks it as read. Turn off **Mark read on open** to peek and keep it unread.
-- **Quick Mark as Read**: A dedicated check button on each notification dismisses it without opening a browser tab.
+- **Open in Browser**: Clicking a notification opens its target page in your browser and, by default, marks it as read on GitHub. Turn off **Mark read on open** to peek and keep it unread.
+- **Mark as Done**: A dedicated check button on each notification marks it as done on GitHub (removes it from your inbox) without opening a browser tab.
 - **Mark All as Read**: One-click action in the header to mark all current notifications as read on GitHub (available on the unfiltered list only).
-- **Undo**: Marking read hides the card and shows an Undo bar for 5 seconds. GitHub has no "mark unread" call, so the request is only sent once the window closes (or when you close the panel).
+- **Undo**: Marking read or done hides the card and shows an Undo bar for 5 seconds. GitHub has no "mark unread" or "undo done" call, so the request is only sent once the window closes (or when you close the panel).
 - **Filters**: All / Mentions / Reviews / CI chips with counts; chips for empty categories are hidden.
 - **Group by repository**: Optional collapsible repository headers with counts.
 - **Reason chips and hover state**: The reason is a tinted chip (red for CI failures), and cards highlight under the pointer.
@@ -78,6 +78,12 @@ Request a manual refresh from CLI or scripts:
 
 ```bash
 noctalia msg plugin hy4ri/github-notifications:sync all refresh
+```
+
+Mark one notification as done (by thread id) via IPC:
+
+```bash
+noctalia msg plugin hy4ri/github-notifications:sync all mark_done <thread-id>
 ```
 
 Mark all notifications as read via IPC:

@@ -2,6 +2,7 @@
   "action": {
     "mark_all_filtered": "Clear the filter to mark all as read",
     "mark_all_read": "Mark all as read",
+    "mark_done": "Mark as done",
     "mark_read": "Mark as read",
     "refresh": "Refresh",
     "refresh_updated": "Refresh · updated {time}",
@@ -43,7 +44,7 @@
       "label": "Hide count when zero"
     },
     "mark_read_on_open": {
-      "description": "Mark a notification as read when you click it to open it in the browser. Turn off to peek and keep it unread; the check button still marks it read.",
+      "description": "Mark a notification as read on GitHub when you click it to open it in the browser. Turn off to peek and keep it unread. The check button marks it as done instead.",
       "label": "Mark read on open"
     },
     "per_page": {
@@ -94,6 +95,8 @@
     "unavailable": "GitHub notifications unavailable"
   },
   "undo": {
+    "done_many": "{count} marked as done",
+    "done_one": "Marked as done",
     "many": "{count} marked as read",
     "one": "Marked as read"
   },
