@@ -3352,3 +3352,17 @@ icon = "wave-sine"
 description = "The NCS audio-visualizer orb on your desktop: 103k GPU-drawn dots that react to any audio, in your theme colours."
 plugin_api = 26
 tags = ["audio", "desktop", "music"]
+
+[[plugin]]
+id = "vavadik/headsetcontrol"
+name = "Headset Control"
+version = "0.1.0"
+updated_at = 1791294797
+added_at = 1791294797
+author = "vavadik"
+license = "MIT"
+icon = "headphones"
+description = "Headset battery and device info from headsetcontrol"
+deprecated = false
+plugin_api = 32
+tags = ["bar", "panel", "service", "audio", "hardware", "indicator"]
