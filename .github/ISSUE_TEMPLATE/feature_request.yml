@@ -95,6 +95,7 @@ body:
         - godot-provider
         - gslapper
         - hassio
+        - headsetcontrol
         - herdr
         - hotspot
         - hover-widgets
