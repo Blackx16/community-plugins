@@ -180,6 +180,7 @@ body:
         - podcasts
         - pomodoro
         - portctl
+        - portforward
         - printers
         - prismlauncher-instances
         - processes
