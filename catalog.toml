@@ -3187,13 +3187,13 @@ tags = ["bar", "desktop", "panel", "service", "utility", "wallpaper"]
 [[plugin]]
 id = "zhangdm/als-brightness"
 name = "ALS Brightness"
-version = "0.4.1"
-updated_at = 1790805024
+version = "0.5.0"
+updated_at = 1791294105
 added_at = 1790805024
 author = "zhangdm"
 license = "MIT"
 icon = "sun"
-description = "Adapts panel brightness to the ambient light sensor, and hands control back the moment you touch the brightness keys."
+description = "Adapts panel brightness and keyboard backlight to ambient light, and hands control back the moment you touch the keys."
 plugin_api = 24
 tags = ["hardware", "system"]
 
