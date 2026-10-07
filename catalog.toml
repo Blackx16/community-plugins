@@ -3392,3 +3392,16 @@ icon = "gauge"
 description = "How much of your Claude, Codex and Antigravity plan limits is left, with reset times and forecasts."
 plugin_api = 32
 tags = ["bar", "panel", "service", "ai", "indicator", "productivity"]
+
+[[plugin]]
+id = "michael-retunzew/hyprland-settings"
+name = "Hyprland Settings"
+version = "1.0.0"
+updated_at = 1791376339
+added_at = 1791376339
+author = "michael-retunzew"
+license = "MIT"
+icon = "adjustments"
+description = "Settings panel for Hyprland's Lua config: displays, input, look. Every change keeps or reverts in 15 s."
+plugin_api = 32
+tags = ["hyprland", "panel", "bar", "launcher", "service", "system", "utility"]
