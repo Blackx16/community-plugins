@@ -95,6 +95,7 @@ body:
         - godot-provider
         - gslapper
         - hassio
+        - headroom
         - headsetcontrol
         - herdr
         - hotspot
