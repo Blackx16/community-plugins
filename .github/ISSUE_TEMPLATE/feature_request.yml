@@ -103,6 +103,7 @@ body:
         - hypr-layout-switcher
         - hypr-screen-mirror
         - hypr-submap
+        - hyprland-settings
         - hyprland-visual-editor
         - ideapad-conservation-mode
         - iio_lock
