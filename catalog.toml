@@ -1557,15 +1557,21 @@ tags = ["bar", "panel", "service", "system"]
 [[plugin]]
 id = "tphilippot/git_companion"
 name = "Git Companion"
-version = "1.3.1"
-updated_at = 1791409162
+version = "1.4.0"
+updated_at = 1791462947
 added_at = 1786925440
 author = "thomas-philippot"
 license = "MIT"
 icon = "brand-git"
 description = "Monitor your git repositories from the Noctalia bar. See your current PRs/MRs and issues at a glance."
-plugin_api = 23
+plugin_api = 24
 tags = ["development", "bar", "panel", "service", "productivity"]
+
+[[plugin.release]]
+plugin_api = 23
+version = "1.3.1"
+updated_at = 1791409162
+rev = "2ca4148d6365b2f1226917407d1c6db26c3f469a"
 
 [[plugin]]
 id = "piero-93/battery-power-management"
