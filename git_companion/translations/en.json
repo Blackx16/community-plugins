@@ -44,7 +44,7 @@
       }
     },
     "branch_badge": {
-      "description": "Choose which target branch to display in a colored badge."
+      "description": "Choose which target branch to display in a colored badge. (Github not supported)"
     },
     "branch_badge_alert": {
       "label": "Badge — alert"
@@ -67,7 +67,7 @@
       "label": "Gitea Login"
     },
     "group": {
-      "description": "Filter by group (GitLab) or owner (GitHub, Gitea). Leave empty to use repo.",
+      "description": "Filter by group (GitLab) or owner (GitHub). Leave empty to use repo.",
       "label": "Group / Owner"
     },
     "notify_mr_changes_requested": {
@@ -87,7 +87,7 @@
       "label": "Notify: Pipeline Failed"
     },
     "platform": {
-      "description": "Choose between GitHub, GitLab or Gitea.",
+      "description": "Choose between GitHub or GitLab.",
       "label": "Platform",
       "options": {
         "gitea": "Gitea",
@@ -100,7 +100,7 @@
       "label": "Refresh Interval (seconds)"
     },
     "repo": {
-      "description": "e.g. owner/repo (GitHub, Gitea) or project path (GitLab). Leave empty to use group/owner.",
+      "description": "e.g. owner/repo (GitHub) or project path (GitLab). Leave empty to use group/owner.",
       "label": "Repository"
     },
     "show_issues": {
