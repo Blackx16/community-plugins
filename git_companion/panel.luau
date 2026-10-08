@@ -28,12 +28,11 @@ local gitlab = require("./gitlab.luau")
 
 local function tr(key, args) return noctalia.tr("panel." .. key, args) end
 
--- Open a PR/issue URL in the default browser. Single quotes are escaped so the
--- URL can't break out of the shell argument.
+-- Open a PR/issue URL in the default browser. The URL is passed as its own
+-- argv entry, so no shell ever parses it.
 local function openLink(link)
   if not link or link == "" then return end
-  local safe = link:gsub("'", "'\\''")
-  noctalia.runAsync("xdg-open '" .. safe .. "'")
+  noctalia.runAsync({"xdg-open", link})
 end
 
 local function itemsForTab()
@@ -372,7 +371,7 @@ function onTabReviews() switchTab("reviews") end
 function onCloseClicked() panel.close() end
 
 function onRefreshClicked()
-  noctalia.runAsync("noctalia msg plugin tphilippot/git_companion:service all refresh")
+  noctalia.runAsync({"noctalia", "msg", "plugin", "tphilippot/git_companion:service", "all", "refresh"})
 end
 
 -- Watch for state changes from the service
