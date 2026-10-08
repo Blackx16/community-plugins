@@ -3437,3 +3437,16 @@ icon = "hexagons"
 description = "Your Beeminder goals in the bar, with a bee that changes color as deadlines approach."
 plugin_api = 24
 tags = ["bar", "panel", "service", "productivity", "indicator"]
+
+[[plugin]]
+id = "kjvdven/basecamp"
+name = "Basecamp"
+version = "0.1.0"
+updated_at = 1791483048
+added_at = 1791483048
+author = "kjvdven"
+license = "MIT"
+icon = "campfire"
+description = "Unread and recent notifications from every authorized Basecamp account, via the Basecamp CLI."
+plugin_api = 24
+tags = ["bar", "panel", "service", "productivity", "indicator"]
