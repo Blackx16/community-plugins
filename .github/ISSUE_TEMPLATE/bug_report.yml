@@ -49,6 +49,7 @@ body:
         - battery-threshold
         - battery-widget
         - bazaarsearch
+        - beeminder
         - better-clock
         - bitdjinn
         - bookmarks
