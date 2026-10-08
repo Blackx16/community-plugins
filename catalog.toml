@@ -3424,3 +3424,16 @@ icon = "keyboard"
 description = "Displays the status of the keyboard lock keys."
 plugin_api = 24
 tags = ["bar", "indicator"]
+
+[[plugin]]
+id = "giodamelio/beeminder"
+name = "Beeminder"
+version = "1.0.0"
+updated_at = 1791463381
+added_at = 1791463381
+author = "giodamelio"
+license = "MIT"
+icon = "hexagons"
+description = "Your Beeminder goals in the bar, with a bee that changes color as deadlines approach."
+plugin_api = 24
+tags = ["bar", "panel", "service", "productivity", "indicator"]
