@@ -3405,3 +3405,16 @@ icon = "adjustments"
 description = "Settings panel for Hyprland's Lua config: displays, input, look. Every change keeps or reverts in 15 s."
 plugin_api = 32
 tags = ["hyprland", "panel", "bar", "launcher", "service", "system", "utility"]
+
+[[plugin]]
+id = "ismay/keyboard-state"
+name = "Keyboard State"
+version = "1.0.0"
+updated_at = 1791462496
+added_at = 1791462496
+author = "ismay"
+license = "MIT"
+icon = "keyboard"
+description = "Displays the status of the keyboard lock keys."
+plugin_api = 24
+tags = ["bar", "indicator"]
