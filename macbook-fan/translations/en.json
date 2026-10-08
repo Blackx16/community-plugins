@@ -1,0 +1,53 @@
+{
+  "notify": {
+    "setup_started": "Running MacBook Fan requirements check and setup...",
+    "title": "MacBook Fan"
+  },
+  "panel": {
+    "close": "Close",
+    "controller": "Controller",
+    "controller_daemon": "mbpfan active",
+    "display_mode": "Bar Display Mode",
+    "driver": "Kernel Driver",
+    "driver_loaded": "applesmc loaded",
+    "gauge_limits": "1200 - 6500 RPM",
+    "mode_both": "Both",
+    "mode_percent": "Percent",
+    "mode_rpm": "RPM",
+    "prereqs_title": "Requirements & Health",
+    "run_setup": "Run Requirements Setup",
+    "telemetry_title": "Thermal & Limits",
+    "temperature": "CPU Temperature",
+    "title": "MacBook Fan & Thermal"
+  },
+  "settings": {
+    "allow_popup": {
+      "description": "Open the detailed fan and thermal panel when clicking the widget",
+      "label": "Click opens popup panel"
+    },
+    "colorize_by_temp": {
+      "description": "Colorize the fan widget glyph and badge based on thermal load",
+      "label": "Colorize by temperature"
+    },
+    "display_mode": {
+      "description": "Show fan speed as RPM, percentage of maximum (6500 RPM), or both",
+      "label": "Display mode",
+      "options": {
+        "both": "RPM and Percentage",
+        "percent": "Percentage",
+        "rpm": "RPM"
+      }
+    },
+    "poll_interval_ms": {
+      "description": "Polling interval for hardware telemetry in milliseconds",
+      "label": "Update interval (ms)"
+    }
+  },
+  "tooltip": {
+    "controller": "Controller",
+    "limits": "Operating limits",
+    "speed": "Fan speed",
+    "status": "Thermal load",
+    "temperature": "CPU temperature"
+  }
+}
