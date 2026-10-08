@@ -1324,8 +1324,8 @@ tags = ["hardware", "system"]
 [[plugin]]
 id = "davemhammer/k8s-status"
 name = "K8s Status"
-version = "1.1.6"
-updated_at = 1791464669
+version = "1.2.0"
+updated_at = 1791465117
 added_at = 1786284828
 author = "davemhammer"
 license = "MIT"
