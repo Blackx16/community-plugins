@@ -3456,3 +3456,16 @@ icon = "campfire"
 description = "Unread and recent notifications from every authorized Basecamp account, via the Basecamp CLI."
 plugin_api = 24
 tags = ["bar", "panel", "service", "productivity", "indicator"]
+
+[[plugin]]
+id = "al3x/visualizerp"
+name = "Visualizer+"
+version = "0.1.0"
+updated_at = 1791486456
+added_at = 1791486456
+author = "al3x"
+license = "MIT"
+icon = "activity"
+description = "Live oscilloscope of the default audio output rendered in the bar."
+plugin_api = 3
+tags = ["audio", "bar", "utility"]
