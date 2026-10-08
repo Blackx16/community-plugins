@@ -1285,8 +1285,8 @@ rev = "2b10a25ee03d345d17cf9eae16405c168a75abf8"
 [[plugin]]
 id = "davemhammer/obsidian"
 name = "Obsidian"
-version = "1.0.6"
-updated_at = 1786225739
+version = "1.0.7"
+updated_at = 1791465223
 added_at = 1786225739
 author = "davemhammer"
 license = "MIT"
