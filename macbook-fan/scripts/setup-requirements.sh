@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # setup-requirements.sh
 # Diagnostic and automated setup script for MacBook Fan & Thermal Monitor
-# Ensures applesmc driver is loaded and mbpfan daemon is configured and running.
+# Ensures applesmc driver is loaded, mbpfan daemon is configured, and sysfs fan control permissions are set.
 
 set -e
 
@@ -99,6 +99,33 @@ if [ -n "$FAN_FILE" ] && [ -r "$FAN_FILE" ]; then
     echo -e "${GREEN}[OK] World-readable ($RPM RPM)${NC}"
 else
     echo -e "${YELLOW}[WARN] Cannot read $FAN_FILE directly.${NC}"
+fi
+
+# 5. Check Fan Manual Control Permissions
+echo -n "Checking sysfs manual fan control permissions... "
+OUTPUT_FILE=$(ls /sys/devices/platform/applesmc.*/fan1_output 2>/dev/null | head -n 1 || true)
+MANUAL_FILE=$(ls /sys/devices/platform/applesmc.*/fan1_manual 2>/dev/null | head -n 1 || true)
+
+if [ -n "$OUTPUT_FILE" ] && [ -w "$OUTPUT_FILE" ] && [ -n "$MANUAL_FILE" ] && [ -w "$MANUAL_FILE" ]; then
+    echo -e "${GREEN}[OK] Writable for instantaneous manual fan speed adjustments${NC}"
+else
+    if [ "$CHECK_ONLY" = false ]; then
+        echo -e "${YELLOW}[CONFIGURING]${NC}"
+        echo "Configuring permissions for sysfs fan control nodes..."
+        sudo chmod 0666 /sys/devices/platform/applesmc.*/fan1_manual /sys/devices/platform/applesmc.*/fan1_output 2>/dev/null || true
+        UDEV_RULE_FILE="/etc/udev/rules.d/99-macbook-fan.rules"
+        if [ ! -f "$UDEV_RULE_FILE" ]; then
+            echo 'ACTION=="add|bind", SUBSYSTEM=="platform", DRIVERS=="applesmc", RUN+="/bin/sh -c '\''chmod 0666 /sys/devices/platform/applesmc.*/fan1_manual /sys/devices/platform/applesmc.*/fan1_output 2>/dev/null || true'\''"' | sudo tee "$UDEV_RULE_FILE" >/dev/null
+            echo "Installed persistent udev rule: $UDEV_RULE_FILE"
+            sudo udevadm control --reload-rules 2>/dev/null || true
+            sudo udevadm trigger --subsystem-match=platform 2>/dev/null || true
+        fi
+        if [ -n "$OUTPUT_FILE" ] && [ -w "$OUTPUT_FILE" ]; then
+            echo -e "${GREEN}[OK] Sysfs manual control nodes are now writable!${NC}"
+        fi
+    else
+        echo -e "${YELLOW}[REQUIRES ROOT] Run without --check to configure udev rule.${NC}"
+    fi
 fi
 
 echo -e "${BLUE}================================================${NC}"

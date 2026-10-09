@@ -1,13 +1,13 @@
 id = "blackx16/macbook-fan"
 name = "MacBook Fan"
-version = "1.0.0"
-plugin_api = 9
+version = "1.2.0"
+plugin_api = 12
 author = "blackx16"
 license = "MIT"
 icon = "car-fan"
-description = "MacBook fan speed and thermal monitor with attached panel and mbpfan status."
+description = "MacBook fan speed and thermal monitor with dual surface panel, manual RPM control, and mbpfan integration."
 tags = ["hardware", "bar", "panel", "service", "system", "indicator", "utility"]
-dependencies = ["cat", "sh", "systemctl"]
+dependencies = ["cat", "sh", "systemctl", "bash", "sudo", "modprobe", "tee"]
 
 [[setting]]
 key = "display_mode"
@@ -51,8 +51,17 @@ entry = "widget.luau"
 [[panel]]
 id = "panel"
 entry = "panel.luau"
-width = 320
-height = 360
+width = 340
+height = 348
+placement = "attached"
+position = "auto"
+open_near_click = true
+
+[[panel]]
+id = "panel_manual"
+entry = "panel.luau"
+width = 340
+height = 435
 placement = "attached"
 position = "auto"
 open_near_click = true
