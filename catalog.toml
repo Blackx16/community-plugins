@@ -3427,8 +3427,8 @@ tags = ["hyprland", "panel", "bar", "launcher", "service", "system", "utility"]
 [[plugin]]
 id = "ismay/keyboard-state"
 name = "Keyboard State"
-version = "1.0.0"
-updated_at = 1791462496
+version = "1.1.0"
+updated_at = 1791552083
 added_at = 1791462496
 author = "ismay"
 license = "MIT"
