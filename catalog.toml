@@ -3453,8 +3453,8 @@ tags = ["bar", "panel", "service", "productivity", "indicator"]
 [[plugin]]
 id = "kjvdven/basecamp"
 name = "Basecamp"
-version = "0.1.0"
-updated_at = 1791483048
+version = "0.1.1"
+updated_at = 1791551655
 added_at = 1791483048
 author = "kjvdven"
 license = "MIT"
