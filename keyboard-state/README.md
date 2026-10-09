@@ -28,6 +28,9 @@ The configured input device must be an existing device under one of these paths:
 - `/dev/input/by-id/*`
 - `/dev/input/by-path/*`
 
+The input device path can only contain ASCII letters (`a-z`, `A-Z`), digits (`0-9`), and the characters `/`, `.`, `_`, `-`, `:`, and `+`.
+It is not allowed to contain path traversal (`..`).
+
 Requires both `evsieve` and `evtest` to be available on `PATH`.
 
 - `evsieve` monitors keyboard LED state changes.
@@ -40,7 +43,7 @@ Although `evtest` can also monitor LED state changes, doing so can modify the ke
 
 | Setting             | Type     | Default                     | Description                                                       |
 | ------------------- | -------- | --------------------------- | ----------------------------------------------------------------- |
-| `input_device`      | `file`   | `""`                        | Path to the input device to monitor for keyboard lock key events. |
+| `input_device`      | `string` | `""`                        | Path to the input device to monitor for keyboard lock key events. |
 | `hide_inactive`     | `bool`   | `false`                     | Hide lock key indicators when they are inactive.                  |
 | `active_color`      | `color`  | `"primary"`                 | Color used when a lock key is active.                             |
 | `inactive_color`    | `color`  | `"on_surface"`              | Color used when a lock key is inactive.                           |

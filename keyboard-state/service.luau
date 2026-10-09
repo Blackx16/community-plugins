@@ -1,8 +1,11 @@
 --!nonstrict
 
--- Service state
+-- ============================================================
+-- State and configuration
+-- ============================================================
+
+-- Required commands
 local hasCommands = noctalia.commandExists("evsieve") and noctalia.commandExists("evtest")
-local isStreaming = false
 
 -- Published state
 local hasError = false
@@ -10,29 +13,28 @@ local capsLocked = false
 local numLocked = false
 local scrollLocked = false
 
--- Settings
+-- Service state and configuration
+local isStreaming = false
 local inputDevice = noctalia.getConfig("input_device")
 
--- Constants
+-- LED identifiers used by evtest
 local evtest = {
   caps = "LED_CAPSL",
   num = "LED_NUML",
   scroll = "LED_SCROLLL",
 }
 
+-- LED identifiers used by evsieve
 local evsieve = {
   caps = "led:capsl",
   num = "led:numl",
   scroll = "led:scrolll",
 }
 
-local grepPattern = table.concat({
-  evsieve.caps,
-  evsieve.num,
-  evsieve.scroll,
-}, "|")
-
+-- ============================================================
 -- Helpers
+-- ============================================================
+
 local function publish()
   noctalia.state.set("keyboard-state", {
     hasError = hasError,
@@ -48,17 +50,19 @@ local function fail(message)
   publish()
 end
 
--- Quote value so it's treated as a single string argument by the shell
 local function shellQuote(str)
   return "'" .. str:gsub("'", "'\\''") .. "'"
 end
 
--- Get initial state
+-- ============================================================
+-- Initial state
+-- ============================================================
+
 local function queryLedState(key, callback)
   local isAccepted = noctalia.runAsync(
     { "evtest", "--query", inputDevice, "EV_LED", key },
     function(result)
-      -- with evtest 0 is inactive and 10 is active
+      -- evtest: 0 = inactive, 10 = active
       if result.exitCode ~= 0 and result.exitCode ~= 10 then
         callback(nil)
         return
@@ -72,6 +76,7 @@ local function queryLedState(key, callback)
     callback(nil)
   end
 end
+
 
 local function getInitialState()
   local keys = { evtest.caps, evtest.num, evtest.scroll }
@@ -102,24 +107,59 @@ local function getInitialState()
   end
 end
 
--- Ensure that we don't try to monitor an invalid path
+-- ============================================================
+-- Input device validation
+-- ============================================================
+
+local function isAllowedDeviceByte(byte)
+  return (byte >= 48 and byte <= 57) -- 0-9
+    or (byte >= 65 and byte <= 90) -- A-Z
+    or (byte >= 97 and byte <= 122) -- a-z
+    or byte == 47 -- /
+    or byte == 46 -- .
+    or byte == 95 -- _
+    or byte == 45 -- -
+    or byte == 58 -- :
+    or byte == 43 -- +
+end
+
+local function isAllowedDevicePath(path)
+  return path:match("^/dev/input/event") ~= nil
+    or path:match("^/dev/input/by%-id/") ~= nil
+    or path:match("^/dev/input/by%-path/") ~= nil
+end
+
 local function isValidInputDevice()
+  -- Must be a non empty string
   if type(inputDevice) ~= "string" or inputDevice == "" then
     return false
   end
 
-  local isValidPath = inputDevice:match("^/dev/input/event") ~= nil
-    or inputDevice:match("^/dev/input/by%-id/") ~= nil
-    or inputDevice:match("^/dev/input/by%-path/") ~= nil
-
-  if not isValidPath then
+  -- Must use an allowed device path
+  if not isAllowedDevicePath(inputDevice) then
     return false
   end
 
+  -- Must not contain path traversal
+  if inputDevice:find("..", 1, true) ~= nil then
+    return false
+  end
+
+  -- Must not use disallowed characters
+  for i = 1, #inputDevice do
+    if not isAllowedDeviceByte(inputDevice:byte(i)) then
+      return false
+    end
+  end
+
+  -- Must be an existing device
   return noctalia.fileExists(inputDevice)
 end
 
+-- ============================================================
 -- Keyboard event stream
+-- ============================================================
+
 local function onLine(line)
   local ledcode = line:match("type:code = (led:%a+)")
   if not ledcode then
@@ -131,8 +171,9 @@ local function onLine(line)
     return
   end
 
-  -- with evsieve 0 is inactive and 1 is active
+  -- evsieve: 0 = inactive, 1 = active
   local state = value == "1"
+
   if ledcode == evsieve.caps then
     capsLocked = state
   elseif ledcode == evsieve.num then
@@ -148,17 +189,15 @@ local function onLine(line)
 end
 
 local function subscribe()
-  if not hasCommands or isStreaming then
-    return
-  end
-
-  if not isValidInputDevice() then
-    fail(noctalia.tr("error.invalid_input_device"))
-    return
-  end
+  -- Only monitor these leds
+  local leds = table.concat({
+    evsieve.num,
+    evsieve.caps,
+    evsieve.scroll,
+  }, " ")
 
   isStreaming = noctalia.runStream(
-    "evsieve --input " .. shellQuote(inputDevice) .. " --print | grep --line-buffered -E '" .. grepPattern .. "'",
+    "evsieve --input " .. shellQuote(inputDevice) .. " --print " .. leds,
     onLine
   )
 
@@ -167,7 +206,20 @@ local function subscribe()
   end
 end
 
+-- ============================================================
 -- Start service
+-- ============================================================
+
+if not hasCommands then
+  fail(noctalia.tr("error.required_command_missing"))
+  return
+end
+
+if not isValidInputDevice() then
+  fail(noctalia.tr("error.invalid_input_device"))
+  return
+end
+
 subscribe()
 
 if isStreaming then
