@@ -2490,13 +2490,13 @@ tags = ["bar", "panel", "service", "hardware", "utility", "umbriel"]
 [[plugin]]
 id = "nightwatch75/claude-cockpit"
 name = "Claude Cockpit"
-version = "0.6.5"
-updated_at = 1789150097
+version = "0.7.0"
+updated_at = 1791552209
 added_at = 1789089483
 author = "nightwatch75"
 license = "MIT"
 icon = "robot"
-description = "Monitor Claude Code usage, browse and manage local sessions, edit CLAUDE.md files."
+description = "Monitor Claude Code usage, manage local sessions, skills and mods, edit CLAUDE.md files."
 plugin_api = 24
 tags = ["ai", "development", "bar", "panel", "service", "productivity"]
 
