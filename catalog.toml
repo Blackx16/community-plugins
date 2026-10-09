@@ -1628,8 +1628,8 @@ tags = ["bar", "panel", "service", "productivity", "utility"]
 [[plugin]]
 id = "dragged/cider"
 name = "Cider"
-version = "1.10.0"
-updated_at = 1788957625
+version = "1.11.1"
+updated_at = 1791551895
 added_at = 1787148354
 author = "dragged"
 license = "MIT"
