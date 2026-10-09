@@ -3475,3 +3475,16 @@ icon = "activity"
 description = "Live oscilloscope of the default audio output rendered in the bar."
 plugin_api = 3
 tags = ["audio", "bar", "utility"]
+
+[[plugin]]
+id = "pk/geoip-monitor"
+name = "GeoIP Monitor"
+version = "1.2.3"
+updated_at = 1791552668
+added_at = 1791552668
+author = "pk"
+license = "MIT"
+icon = "globe"
+description = "Reports geographical location based on external ip in the bar"
+plugin_api = 9
+tags = ["bar", "network", "utility"]
